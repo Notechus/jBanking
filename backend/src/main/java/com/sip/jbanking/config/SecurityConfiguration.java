@@ -1,4 +1,4 @@
-package com.sip.jbanking.webservice.config;
+package com.sip.jbanking.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
