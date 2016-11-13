@@ -30,6 +30,17 @@ public abstract class BaseEntityDAO<T extends Entity<ID>, ID extends Serializabl
         this.genericDAO = new GenericDAOBean(entityManager);
     }
 
+    public BaseEntityDAO(EntityManager entityManager, Class<T> persistentClass) {
+        this.entityManager = entityManager;
+        this.persistentClass = persistentClass;
+        this.genericDAO = new GenericDAOBean(entityManager);
+    }
+
+    public BaseEntityDAO(Class<T> persistentClass) {
+        this.persistentClass = persistentClass;
+        this.genericDAO = new GenericDAOBean(entityManager);
+    }
+
     @Override
     public void create(T instance) {
         genericDAO.create(instance);

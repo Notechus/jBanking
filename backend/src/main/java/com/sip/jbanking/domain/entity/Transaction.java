@@ -16,9 +16,10 @@ public class Transaction extends BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //TODO: map this
     @OneToOne(mappedBy = "")
     private User sender;
-
+    //TODO: map this2
     @OneToOne(mappedBy = "")
     private User receiver;
 
