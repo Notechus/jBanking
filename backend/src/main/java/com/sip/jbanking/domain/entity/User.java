@@ -42,18 +42,6 @@ public class User extends BaseEntity<Long> {
     @Column(name = "PHONENUMBER")
     private Long phoneNumber;
 
-    @ManyToMany
-    @JoinTable(name = "USERTOTRANSACTION",//
-            joinColumns = {@JoinColumn(name = "SENDER_ID")},//
-            inverseJoinColumns = {@JoinColumn(name = "TRANSACTION_ID")})
-    private List<Transaction> outgoingTransactions = new LinkedList<>();
-
-    @ManyToMany
-    @JoinTable(name = "USERTOTRANSACTION",//
-            joinColumns = {@JoinColumn(name = "RECEIVER_ID")},//
-            inverseJoinColumns = {@JoinColumn(name = "TRANSACTION_ID")})
-    private List<Transaction> incomingTransactions = new LinkedList<>();
-
     @Override
     public Long getId() {
         return id;
@@ -128,26 +116,9 @@ public class User extends BaseEntity<Long> {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Transaction> getOutgoingTransactions() {
-        return outgoingTransactions;
-    }
-
-    public void setOutgoingTransactions(List<Transaction> outgoingTransactions) {
-        this.outgoingTransactions = outgoingTransactions;
-    }
-
-    public List<Transaction> getIncomingTransactions() {
-        return incomingTransactions;
-    }
-
-    public void setIncomingTransactions(List<Transaction> incomingTransactions) {
-        this.incomingTransactions = incomingTransactions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || !(o instanceof User)) return false;
-
 
         User user = (User) o;
 
@@ -161,8 +132,6 @@ public class User extends BaseEntity<Long> {
                 .append(email, user.email)
                 .append(location, user.location)
                 .append(phoneNumber, user.phoneNumber)
-                .append(outgoingTransactions, user.outgoingTransactions)
-                .append(incomingTransactions, user.incomingTransactions)
                 .isEquals();
     }
 
