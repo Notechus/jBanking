@@ -12,6 +12,7 @@ public class TransferDTO implements Serializable {
     private double amount;
     private String name;
     private String title;
+    private String currency;
 
     public String getSenderAccNumber() {
         return senderAccNumber;
@@ -51,5 +52,13 @@ public class TransferDTO implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

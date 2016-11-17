@@ -10,4 +10,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public interface AccountDAO extends EntityDAO<Account, Long> {
 
 
+    public Account findByAccountNumber(String senderAccNumber);
 }

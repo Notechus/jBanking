@@ -1,6 +1,6 @@
 package com.sip.jbanking.domain.mappings;
 
-import com.sip.jbanking.domain.entity.Transaction;
+import com.sip.jbanking.domain.entity.Transfer;
 import com.sip.jbanking.domain.to.TransactionTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,5 +12,5 @@ import org.mapstruct.Mapping;
 public interface TransactionMapper {
 
     @Mapping(source = "currency.name", target = "currencyName")
-    TransactionTO transactionToTransactionTO(Transaction transaction);
+    TransactionTO transactionToTransactionTO(Transfer transaction);
 }

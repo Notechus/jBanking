@@ -7,4 +7,5 @@ import com.sip.jbanking.domain.entity.Currency;
  */
 public interface CurrencyDAO extends EntityDAO<Currency, Long> {
 
+    public Currency findByName(String currency);
 }
