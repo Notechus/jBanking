@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS currency (
   id SERIAL PRIMARY KEY,
-  currency_name VARCHAR(3) NOT NULL,
+  currency_name VARCHAR(3) UNIQUE NOT NULL,
   buy_price DOUBLE,
   sell_price DOUBLE
 );

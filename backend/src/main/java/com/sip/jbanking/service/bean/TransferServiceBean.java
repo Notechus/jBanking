@@ -29,6 +29,16 @@ public class TransferServiceBean implements TransferService {
     @Autowired
     private CurrencyDAO currencyDAO;
 
+    public TransferServiceBean(){
+
+    }
+
+    /*package*/ TransferServiceBean(TransferDAO transferDAO, AccountDAO accountDAO, CurrencyDAO currencyDAO){
+        this.accountDAO = accountDAO;
+        this.transferDAO = transferDAO;
+        this.currencyDAO = currencyDAO;
+    }
+
     @Override
     public Transfer getTransferById(long id) {
         return transferDAO.findById(id);
