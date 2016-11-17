@@ -12,13 +12,7 @@ var App = React.createClass({
     getInitialState: function () {
         return {view: 1};
     },
-    handleMessage: function (event) {
-        var tmp = JSON.parse(event.data);
-        AppDispatcher.dispatch({
-            actionType: 'MARKET_NEW_CHANGE',
-            data: tmp
-        });
-    },
+
     componentDidMount: function () {
         AppDispatcher.dispatch({
             actionType: 'ACCOUNT_GET',
@@ -33,7 +27,8 @@ var App = React.createClass({
         return (
             <div>
                 <NavbarMenu handleViews={this.handleViews}/>
-                <MainBody view={this.state.view}/>
+                <MainBody />
+
 
 
             </div>);

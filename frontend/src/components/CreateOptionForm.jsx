@@ -280,7 +280,7 @@ var CreateOptionForm = React.createClass({
                     </Col>
                     <Col smPush={4} sm={2}>
                         <Button type="button" onClick={this.handleSubmit}>
-                            <Glyphicon glyph="plus"></Glyphicon>
+
                         </Button>
                     </Col>
                 </FormGroup>
