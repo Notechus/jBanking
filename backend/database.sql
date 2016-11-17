@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS user (
   location_id BIGINT UNSIGNED NOT NULL ,
   phone_number INT NOT NULL,
   email VARCHAR(30) NOT NULL,
-  FOREIGN KEY (location_id) REFERENCES location(location_id)
+  FOREIGN KEY (location_id) REFERENCES location(id)
 );
 
 CREATE TABLE IF NOT EXISTS transfer (
@@ -43,13 +43,13 @@ CREATE TABLE IF NOT EXISTS transfer (
   currency_id BIGINT UNSIGNED NOT NULL ,
   amount DOUBLE NOT NULL ,
   description VARCHAR(150) NOT NULL,
-  FOREIGN KEY (sender_id) REFERENCES user(user_id),
-  FOREIGN KEY (receiver_id) REFERENCES user(user_id),
-  FOREIGN KEY (currency_id) REFERENCES currency(currency_id)
+  FOREIGN KEY (sender_id) REFERENCES account(id),
+  FOREIGN KEY (receiver_id) REFERENCES account(id),
+  FOREIGN KEY (currency_id) REFERENCES currency(id)
 );
 
 ALTER TABLE account
-    ADD FOREIGN KEY (owner_id) REFERENCES user(user_id);
+    ADD FOREIGN KEY (owner_id) REFERENCES user(id);
 
 ALTER TABLE user
-    ADD FOREIGN KEY (account_id) REFERENCES account(account_id);
+    ADD FOREIGN KEY (account_id) REFERENCES account(id);
