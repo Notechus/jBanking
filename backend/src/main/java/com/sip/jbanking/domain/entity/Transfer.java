@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * @author notechus.
  */
 @Entity
-public class Transfer extends BaseEntity<Long> {
+public class Transfer implements com.sip.jbanking.domain.entity.Entity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +31,10 @@ public class Transfer extends BaseEntity<Long> {
 
     private String description;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }

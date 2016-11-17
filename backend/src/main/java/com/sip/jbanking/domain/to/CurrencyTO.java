@@ -12,9 +12,7 @@ public class CurrencyTO implements Serializable {
 
     private String name;
 
-    private double buyPrice;
-
-    private double sellPrice;
+    private double price;
 
     public String getName() {
         return name;
@@ -24,20 +22,12 @@ public class CurrencyTO implements Serializable {
         this.name = name;
     }
 
-    public double getBuyPrice() {
-        return buyPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setBuyPrice(double buyPrice) {
-        this.buyPrice = buyPrice;
-    }
-
-    public double getSellPrice() {
-        return sellPrice;
-    }
-
-    public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
@@ -49,8 +39,7 @@ public class CurrencyTO implements Serializable {
         CurrencyTO that = (CurrencyTO) o;
 
         return new EqualsBuilder()
-                .append(buyPrice, that.buyPrice)
-                .append(sellPrice, that.sellPrice)
+                .append(price, that.price)
                 .append(name, that.name)
                 .isEquals();
     }

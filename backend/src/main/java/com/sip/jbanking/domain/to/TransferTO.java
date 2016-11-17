@@ -1,16 +1,19 @@
 package com.sip.jbanking.domain.to;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
  * @author notechus.
  */
-public class TransferDTO implements Serializable {
+public class TransferTO implements Serializable {
 
     private String senderAccNumber;
     private String receiverAccNumber;
-    private double amount;
     private String name;
+    private double amount;
     private String title;
     private String currency;
 

@@ -22,8 +22,7 @@ public class CurrencyMapperTest {
     private CurrencyMapper mapper;
 
     private static final String NAME = "PLN";
-    private static final double SELL_PRICE = 1.99;
-    private static final double BUY_PRICE = 2.01;
+    private static final double PRICE = 1.99;
 
     @Test
     public void shouldMapCurrencyToCurrencyTO() {
@@ -37,8 +36,7 @@ public class CurrencyMapperTest {
     private CurrencyTO expectedCurrencyTO() {
         CurrencyTO c = new CurrencyTO();
         c.setName(NAME);
-        c.setSellPrice(SELL_PRICE);
-        c.setBuyPrice(BUY_PRICE);
+        c.setPrice(PRICE);
 
         return c;
     }
@@ -46,8 +44,7 @@ public class CurrencyMapperTest {
     private Currency prepareCurrency() {
         Currency c = new Currency();
         c.setName(NAME);
-        c.setSellPrice(SELL_PRICE);
-        c.setBuyPrice(BUY_PRICE);
+        c.setPrice(PRICE);
 
         return c;
     }

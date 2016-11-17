@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS currency (
   id SERIAL PRIMARY KEY,
   currency_name VARCHAR(3) UNIQUE NOT NULL,
-  buy_price DOUBLE,
-  sell_price DOUBLE
+  price DOUBLE
 );
 
 CREATE TABLE IF NOT EXISTS location (
@@ -16,17 +15,16 @@ CREATE TABLE IF NOT EXISTS location (
 CREATE TABLE IF NOT EXISTS account (
   id SERIAL PRIMARY KEY ,
   owner_id BIGINT UNSIGNED NOT NULL,
-  account_tumber VARCHAR(26) UNIQUE NOT NULL ,
+  account_number VARCHAR(26) UNIQUE NOT NULL ,
   balance DOUBLE DEFAULT 0 NOT NULL ,
-  creationtime TIMESTAMP DEFAULT now() NOT NULL,
-  modificationtime TIMESTAMP DEFAULT now() NOT NULL
+  creationtime TIMESTAMP DEFAULT now() NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user (
   id SERIAL PRIMARY KEY ,
   account_id BIGINT UNSIGNED NOT NULL ,
   username VARCHAR(30) UNIQUE NOT NULL ,
-  password VARCHAR(30) NOT NULL ,
+  password CHAR(60) NOT NULL ,
   name VARCHAR(30) NOT NULL ,
   surname VARCHAR(30) NOT NULL ,
   location_id BIGINT UNSIGNED NOT NULL ,

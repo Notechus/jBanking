@@ -4,8 +4,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author notechus.
@@ -23,10 +21,6 @@ public class UserTO implements Serializable {
     private LocationTO location;
 
     private long phoneNumber;
-
-    private List<TransactionTO> outgoingTransactions = new LinkedList<>();
-
-    private List<TransactionTO> incomingTransactions = new LinkedList<>();
 
     public AccountTO getAccount() {
         return account;
@@ -76,22 +70,6 @@ public class UserTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<TransactionTO> getOutgoingTransactions() {
-        return outgoingTransactions;
-    }
-
-    public void setOutgoingTransactions(List<TransactionTO> outgoingTransactions) {
-        this.outgoingTransactions = outgoingTransactions;
-    }
-
-    public List<TransactionTO> getIncomingTransactions() {
-        return incomingTransactions;
-    }
-
-    public void setIncomingTransactions(List<TransactionTO> incomingTransactions) {
-        this.incomingTransactions = incomingTransactions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,8 +85,6 @@ public class UserTO implements Serializable {
                 .append(fullName, userTO.fullName)
                 .append(email, userTO.email)
                 .append(location, userTO.location)
-                .append(outgoingTransactions, userTO.outgoingTransactions)
-                .append(incomingTransactions, userTO.incomingTransactions)
                 .isEquals();
     }
 

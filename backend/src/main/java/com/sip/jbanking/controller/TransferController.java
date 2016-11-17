@@ -1,7 +1,6 @@
 package com.sip.jbanking.controller;
 
-import com.sip.jbanking.domain.to.TransferDTO;
-import com.sip.jbanking.service.AccountService;
+import com.sip.jbanking.domain.to.TransferTO;
 import com.sip.jbanking.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class TransferController {
     private TransferService transferService;
 
     @RequestMapping(value = "api/v1/transfer", method = RequestMethod.POST)
-    public ResponseEntity post(@RequestBody TransferDTO transferDTO){
+    public ResponseEntity post(@RequestBody TransferTO transferDTO) {
         if (transferService.transferMoney(transferDTO)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {

@@ -24,8 +24,8 @@ public class TestConfiguration {
     }
 
     @Bean
-    public TransactionMapper transactionMapper() {
-        return new TransactionMapperImpl();
+    public TransferMapper transferMapper() {
+        return new TransferMapperImpl();
     }
 
     @Bean

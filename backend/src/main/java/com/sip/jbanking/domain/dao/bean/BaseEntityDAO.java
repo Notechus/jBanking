@@ -25,7 +25,6 @@ public abstract class BaseEntityDAO<T extends Entity<ID>, ID extends Serializabl
     private GenericDAO genericDAO;
 
     public BaseEntityDAO() {
-        //TODO: ...
         this.persistentClass = null;
         this.genericDAO = new GenericDAOBean(entityManager);
     }

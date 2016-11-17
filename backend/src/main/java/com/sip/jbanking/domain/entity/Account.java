@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * @author notechus.
  */
 @Entity
-public class Account extends BaseEntity<Long> {
+public class Account implements com.sip.jbanking.domain.entity.Entity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,10 @@ public class Account extends BaseEntity<Long> {
     @Column(name = "BALANCE")
     private double balance;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }

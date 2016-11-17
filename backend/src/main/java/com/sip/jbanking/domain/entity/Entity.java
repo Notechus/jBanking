@@ -1,19 +1,11 @@
 package com.sip.jbanking.domain.entity;
 
-import java.io.Serializable;
-
 /**
  * @author notechus.
  */
-public interface Entity<T> extends Serializable {
+public interface Entity<ID> {
 
-    T getId();
+    public Long getId();
 
-    void setId(T id);
-
-    @Override
-    int hashCode();
-
-    @Override
-    boolean equals(Object o);
+    public void setId(Long id);
 }

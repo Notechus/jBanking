@@ -12,7 +12,7 @@ import java.util.List;
  * @author Notechus.
  */
 @Entity
-public class User extends BaseEntity<Long> {
+public class User implements com.sip.jbanking.domain.entity.Entity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +42,10 @@ public class User extends BaseEntity<Long> {
     @Column(name = "PHONENUMBER")
     private Long phoneNumber;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }

@@ -6,7 +6,7 @@ import com.sip.jbanking.domain.dao.TransferDAO;
 import com.sip.jbanking.domain.entity.Account;
 import com.sip.jbanking.domain.entity.Currency;
 import com.sip.jbanking.domain.entity.Transfer;
-import com.sip.jbanking.domain.to.TransferDTO;
+import com.sip.jbanking.domain.to.TransferTO;
 import com.sip.jbanking.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +29,11 @@ public class TransferServiceBean implements TransferService {
     @Autowired
     private CurrencyDAO currencyDAO;
 
-    public TransferServiceBean(){
+    public TransferServiceBean() {
 
     }
 
-    /*package*/ TransferServiceBean(TransferDAO transferDAO, AccountDAO accountDAO, CurrencyDAO currencyDAO){
+    /*package*/ TransferServiceBean(TransferDAO transferDAO, AccountDAO accountDAO, CurrencyDAO currencyDAO) {
         this.accountDAO = accountDAO;
         this.transferDAO = transferDAO;
         this.currencyDAO = currencyDAO;
@@ -45,7 +45,7 @@ public class TransferServiceBean implements TransferService {
     }
 
     @Override
-    public boolean transferMoney(TransferDTO transfer) {
+    public boolean transferMoney(TransferTO transfer) {
         Account sender = accountDAO.findByAccountNumber(transfer.getSenderAccNumber());
         Account receiver = accountDAO.findByAccountNumber(transfer.getReceiverAccNumber());
 
@@ -54,9 +54,7 @@ public class TransferServiceBean implements TransferService {
         double amount = transfer.getAmount();
         Currency currency = currencyDAO.findByName(transfer.getCurrency());
         if (!transfer.getCurrency().equals("PLN")) {
-
-
-            amount *= currency.getBuyPrice();
+            amount *= currency.getPrice();
         }
 
         sender.setBalance(sender.getBalance() - amount);
@@ -71,7 +69,7 @@ public class TransferServiceBean implements TransferService {
         return true;
     }
 
-    private Transfer prepareTransfer(TransferDTO transfer, Account sender, Account receiver, Currency currency, double amount) {
+    private Transfer prepareTransfer(TransferTO transfer, Account sender, Account receiver, Currency currency, double amount) {
         Transfer t = new Transfer();
         t.setReceiver(receiver);
         t.setSender(sender);

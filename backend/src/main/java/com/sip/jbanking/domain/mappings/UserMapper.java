@@ -9,7 +9,7 @@ import org.mapstruct.Mappings;
 /**
  * @author notechus.
  */
-@Mapper(uses = {AccountMapper.class, LocationMapper.class, TransactionMapper.class}, componentModel = "spring")
+@Mapper(uses = {AccountMapper.class, LocationMapper.class, TransferMapper.class}, componentModel = "spring")
 public interface UserMapper {
 
     @Mappings({

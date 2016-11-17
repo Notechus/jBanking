@@ -10,7 +10,7 @@ import javax.persistence.Id;
 /**
  * @author notechus.
  */
-public class Currency extends BaseEntity<Long> {
+public class Currency implements com.sip.jbanking.domain.entity.Entity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +18,12 @@ public class Currency extends BaseEntity<Long> {
 
     private String name;
 
-    private double buyPrice;
+    private double price;
 
-    private double sellPrice;
-
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -40,20 +36,12 @@ public class Currency extends BaseEntity<Long> {
         this.name = name;
     }
 
-    public double getBuyPrice() {
-        return buyPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setBuyPrice(double buyPrice) {
-        this.buyPrice = buyPrice;
-    }
-
-    public double getSellPrice() {
-        return sellPrice;
-    }
-
-    public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
@@ -65,8 +53,7 @@ public class Currency extends BaseEntity<Long> {
         Currency currency = (Currency) o;
 
         return new EqualsBuilder()
-                .append(buyPrice, currency.buyPrice)
-                .append(sellPrice, currency.sellPrice)
+                .append(price, currency.price)
                 .append(id, currency.id)
                 .append(name, currency.name)
                 .isEquals();
@@ -75,8 +62,7 @@ public class Currency extends BaseEntity<Long> {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(buyPrice)
-                .append(sellPrice)
+                .append(price)
                 .toHashCode();
     }
 }

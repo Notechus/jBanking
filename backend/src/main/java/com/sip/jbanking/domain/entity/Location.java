@@ -12,7 +12,7 @@ import javax.persistence.Id;
  * @author notechus.
  */
 @Entity
-public class Location extends BaseEntity<Long> {
+public class Location implements com.sip.jbanking.domain.entity.Entity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,10 @@ public class Location extends BaseEntity<Long> {
 
     private String state;
 
-    @Override
     public Long getId() {
         return id;
     }
-
-    @Override
+    
     public void setId(Long id) {
         this.id = id;
     }
