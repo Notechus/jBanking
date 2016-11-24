@@ -14,9 +14,9 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 /**
  * @author notechus.
  */
-@Configuration
-@EnableResourceServer
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Configuration
+//@EnableResourceServer
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
 
@@ -31,20 +31,20 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/index.html", "/news.html", "/login.html", "/profile.html", "/").permitAll()
-                .anyRequest().authenticated()
-                .antMatchers("/admin.html").hasAuthority("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/api/v1/news").permitAll()
-                .antMatchers("/api/v1/post").hasAuthority("MODERATOR")
-                .antMatchers("/register").permitAll()
-                .anyRequest().permitAll()
-                .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//        http
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/index.html", "/news.html", "/login.html", "/profile.html", "/").permitAll()
+//                .anyRequest().authenticated()
+//                .antMatchers("/admin.html").hasAuthority("ADMIN")
+//                .and()
+//                .authorizeRequests().antMatchers("/api/v1/news").permitAll()
+//                .antMatchers("/api/v1/post").hasAuthority("MODERATOR")
+//                .antMatchers("/register").permitAll()
+//                .anyRequest().permitAll()
+//                .and()
+//                .csrf()
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 }

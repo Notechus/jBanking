@@ -2,6 +2,7 @@ package com.sip.jbanking.domain.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -82,5 +83,15 @@ public class Account implements com.sip.jbanking.domain.entity.Entity<Long> {
                 .append(accountNumber)
                 .append(balance)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("owner", owner)
+                .append("accountNumber", accountNumber)
+                .append("balance", balance)
+                .toString();
     }
 }

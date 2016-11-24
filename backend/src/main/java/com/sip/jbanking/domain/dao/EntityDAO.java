@@ -24,8 +24,6 @@ public interface EntityDAO<T extends Entity<ID>, ID extends Serializable> extend
 
     public List<T> findAll();
 
-    public T getReference(ID id);
-
     long count();
 
     void flush();

@@ -1,5 +1,6 @@
 package com.sip.jbanking.domain.mappings;
 
+import com.sip.jbanking.domain.entity.Account;
 import com.sip.jbanking.domain.entity.Currency;
 import com.sip.jbanking.domain.entity.Transfer;
 import com.sip.jbanking.domain.to.TransferTO;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-public class TransactionMapperTest {
+public class TransferMapperTest {
 
     @Autowired
     private TransferMapper mapper;
@@ -38,6 +39,8 @@ public class TransactionMapperTest {
     private static final String FULL_NAME2 = "William Shakespeare";
     private static final String ACC_NUMBER = "1234567890";
     private static final String ACC_NUMBER2 = "09887654321";
+    private static final double BALANCE1 = 100.0;
+    private static final double BALANCE2 = 78.5;
 
     @Test
     public void shouldMapTransactionToTransactionTO() {
@@ -57,8 +60,8 @@ public class TransactionMapperTest {
         c.setPrice(PRICE);
         t.setCurrency(c);
         t.setDescription(DESCRIPTION);
-//        t.setSender(prepareUser(USERNAME, NAME, SURNAME, EMAIL));
-//        t.setReceiver(prepareUser(USERNAME2, NAME2, SURNAME2, EMAIL2));
+        t.setSender(prepareAccount(BALANCE1, ACC_NUMBER));
+        t.setReceiver(prepareAccount(BALANCE2, ACC_NUMBER2));
 
         return t;
     }
@@ -72,5 +75,13 @@ public class TransactionMapperTest {
         t.setReceiverAccNumber(ACC_NUMBER2);
 
         return t;
+    }
+
+    private Account prepareAccount(double balance, String accountNumber) {
+        Account a = new Account();
+        a.setBalance(balance);
+        a.setAccountNumber(accountNumber);
+
+        return a;
     }
 }

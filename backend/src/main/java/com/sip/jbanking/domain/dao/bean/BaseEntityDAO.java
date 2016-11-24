@@ -1,13 +1,13 @@
 package com.sip.jbanking.domain.dao.bean;
 
 import com.sip.jbanking.domain.dao.EntityDAO;
-import com.sip.jbanking.domain.dao.GenericDAO;
 import com.sip.jbanking.domain.entity.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,76 +22,92 @@ public abstract class BaseEntityDAO<T extends Entity<ID>, ID extends Serializabl
     protected EntityManager entityManager;
 
     private final Class<T> persistentClass;
-    private GenericDAO genericDAO;
 
     public BaseEntityDAO() {
         this.persistentClass = null;
-        this.genericDAO = new GenericDAOBean(entityManager);
-    }
-
-    public BaseEntityDAO(EntityManager entityManager, Class<T> persistentClass) {
-        this.entityManager = entityManager;
-        this.persistentClass = persistentClass;
-        this.genericDAO = new GenericDAOBean(entityManager);
     }
 
     public BaseEntityDAO(Class<T> persistentClass) {
         this.persistentClass = persistentClass;
-        this.genericDAO = new GenericDAOBean(entityManager);
     }
 
     @Override
     public void create(T instance) {
-        genericDAO.create(instance);
+        try {
+            entityManager.persist(instance);
+        } catch (Exception e) {
+            log.error("error trying to create ", e);
+            throw e;
+        }
     }
 
     @Override
     public void createList(List<T> instances) {
-        genericDAO.createList(instances);
+        for (T entity : instances) {
+            create(entity);
+        }
     }
 
     @Override
     public T update(T instance) {
-        return genericDAO.update(instance);
+        T res = null;
+        try {
+            res = entityManager.merge(instance);
+        } catch (Exception e) {
+            log.error("error trying to update " + e);
+        }
+        return res;
     }
 
     @Override
     public T createOrUpdate(T instance) {
-        return genericDAO.createOrUpdate(instance);
+        if (instance.getId() != null) {
+            return entityManager.merge(instance);
+        }
+        entityManager.persist(instance);
+        return instance;
     }
 
     @Override
     public void delete(T instance) {
-        genericDAO.delete(instance);
+        try {
+            T ins = entityManager.merge(instance);
+            entityManager.remove(ins);
+        } catch (Exception e) {
+            log.error("error trying to delete " + e);
+        }
     }
 
     @Override
     public T findById(ID id) {
-        return genericDAO.findById(id, persistentClass);
+        T res = null;
+        try {
+            res = entityManager.find(persistentClass, id);
+        } catch (Exception e) {
+            log.error("error trying to find " + persistentClass.getSimpleName());
+            throw e;
+        }
+        return res;
     }
 
     @Override
     public List<T> findAll() {
-        return genericDAO.findAll(persistentClass);
-    }
-
-    @Override
-    public T getReference(ID id) {
-        return genericDAO.getReference(id, persistentClass);
+        return entityManager.createQuery("Select t from " + persistentClass.getSimpleName() + " t", persistentClass).getResultList();
     }
 
     @Override
     public long count() {
-        return genericDAO.count(persistentClass);
+        Query query = entityManager.createQuery("select count(*) as total from " + persistentClass.getSimpleName());
+        return (Long) query.getSingleResult();
     }
 
     @Override
     public void flush() {
-        genericDAO.flush();
+        entityManager.flush();
     }
 
     @Override
     public void refresh(T instance) {
-        genericDAO.refresh(instance);
+        entityManager.refresh(instance);
     }
 }

@@ -12,7 +12,6 @@ public class TransferTO implements Serializable {
 
     private String senderAccNumber;
     private String receiverAccNumber;
-    private String name;
     private double amount;
     private String title;
     private String currency;
@@ -41,14 +40,6 @@ public class TransferTO implements Serializable {
         this.amount = amount;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -63,5 +54,30 @@ public class TransferTO implements Serializable {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TransferTO that = (TransferTO) o;
+
+        return new EqualsBuilder()
+                .append(amount, that.amount)
+                .append(senderAccNumber, that.senderAccNumber)
+                .append(receiverAccNumber, that.receiverAccNumber)
+                .append(title, that.title)
+                .append(currency, that.currency)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(senderAccNumber)
+                .append(receiverAccNumber)
+                .toHashCode();
     }
 }

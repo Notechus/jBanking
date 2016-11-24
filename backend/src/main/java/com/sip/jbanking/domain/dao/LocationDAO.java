@@ -1,6 +1,5 @@
-package com.sip.jbanking.domain.dao.bean;
+package com.sip.jbanking.domain.dao;
 
-import com.sip.jbanking.domain.dao.EntityDAO;
 import com.sip.jbanking.domain.entity.Location;
 
 /**

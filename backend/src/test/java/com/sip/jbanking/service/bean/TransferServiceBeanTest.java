@@ -28,9 +28,8 @@ public class TransferServiceBeanTest {
     private CurrencyDAO currencyDAO = Mockito.mock(CurrencyDAOBean.class);
     private TransferDAO transferDAO = Mockito.mock(TransferDAOBean.class);
     private TransferServiceBean transferService = new TransferServiceBean(transferDAO, accountDAO, currencyDAO);
-    private static final String NAME = "Grzegorz Nowak";
-    private static final String SENDER_ACC_NUMBER = "1234567890";
 
+    private static final String SENDER_ACC_NUMBER = "1234567890";
     private static final String RECEIVER_ACC_NUMBER = "0987654321";
     private static final String CURRENCY = "PLN";
     private static final String TITLE = "hajs";
@@ -47,7 +46,7 @@ public class TransferServiceBeanTest {
         Account receiver = createAccount(BALANCE, RECEIVER_ACC_NUMBER);
         when(accountDAO.findByAccountNumber(SENDER_ACC_NUMBER)).thenReturn(sender);
         when(accountDAO.findByAccountNumber(RECEIVER_ACC_NUMBER)).thenReturn(receiver);
-        when(currencyDAO.findByName(transfer.getName())).thenReturn(createCurrency(NAME, PRICE));
+        when(currencyDAO.findByName(transfer.getCurrency())).thenReturn(createCurrency(CURRENCY, PRICE));
 
         boolean result = transferService.transferMoney(transfer);
 
@@ -82,7 +81,6 @@ public class TransferServiceBeanTest {
         transfer.setSenderAccNumber(SENDER_ACC_NUMBER);
         transfer.setReceiverAccNumber(RECEIVER_ACC_NUMBER);
         transfer.setCurrency(CURRENCY);
-        transfer.setName(NAME);
         transfer.setTitle(TITLE);
 
         return transfer;

@@ -19,8 +19,8 @@ import javax.sql.DataSource;
 /**
  * @author notechus.
  */
-@Configuration
-@EnableAuthorizationServer
+//@Configuration
+//@EnableAuthorizationServer
 public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

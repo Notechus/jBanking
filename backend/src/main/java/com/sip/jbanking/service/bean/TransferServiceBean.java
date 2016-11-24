@@ -8,6 +8,8 @@ import com.sip.jbanking.domain.entity.Currency;
 import com.sip.jbanking.domain.entity.Transfer;
 import com.sip.jbanking.domain.to.TransferTO;
 import com.sip.jbanking.service.TransferService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import javax.transaction.Transactional;
 @Service("TransferService")
 @Transactional
 public class TransferServiceBean implements TransferService {
+
+    private static final Logger log = LoggerFactory.getLogger(TransferServiceBean.class);
 
     @Autowired
     private TransferDAO transferDAO;
@@ -46,10 +50,17 @@ public class TransferServiceBean implements TransferService {
 
     @Override
     public boolean transferMoney(TransferTO transfer) {
+        log.info("Started money transfer transaction.");
         Account sender = accountDAO.findByAccountNumber(transfer.getSenderAccNumber());
         Account receiver = accountDAO.findByAccountNumber(transfer.getReceiverAccNumber());
 
-        if (sender == null || receiver == null) return false;
+        if (sender == null || receiver == null) {
+            log.error("Sender or receiver account not found! Money transfer unsuccessful.");
+            return false;
+        }
+
+        log.info("Found sender account: {}", sender);
+        log.info("Found receiver account: {}", receiver);
 
         double amount = transfer.getAmount();
         Currency currency = currencyDAO.findByName(transfer.getCurrency());
@@ -57,14 +68,31 @@ public class TransferServiceBean implements TransferService {
             amount *= currency.getPrice();
         }
 
-        sender.setBalance(sender.getBalance() - amount);
-        receiver.setBalance(receiver.getBalance() + amount);
-        accountDAO.update(sender);
-        accountDAO.update(receiver);
+        if (!validateAndTransfer(sender, receiver, amount)) {
+            log.error("Insufficient founds on sender");
+            return false;
+        }
 
         Transfer t = prepareTransfer(transfer, sender, receiver, currency, amount);
-
         transferDAO.create(t);
+        log.info("Logged transfer to database.");
+
+        log.info("Successfully transfered money.");
+        return true;
+    }
+
+    private boolean validateAndTransfer(Account sender, Account receiver, double amount) {
+        log.info("Amount to be transfered: {}", amount);
+
+        if (sender.getBalance() - amount < 0) return false;
+
+        sender.setBalance(sender.getBalance() - amount);
+        receiver.setBalance(receiver.getBalance() + amount);
+
+        accountDAO.update(sender);
+        log.info("Updated sender account.");
+        accountDAO.update(receiver);
+        log.info("Updated receiver account.");
 
         return true;
     }

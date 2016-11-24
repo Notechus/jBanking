@@ -2,8 +2,9 @@ package com.sip.jbanking.domain.dao.bean;
 
 import com.sip.jbanking.domain.dao.AccountDAO;
 import com.sip.jbanking.domain.entity.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,8 +14,9 @@ import javax.persistence.TypedQuery;
  * @author notechus.
  */
 @Repository("AccountDAO")
-@EnableTransactionManagement
 public class AccountDAOBean extends BaseEntityDAO<Account, Long> implements AccountDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(AccountDAOBean.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -27,9 +29,16 @@ public class AccountDAOBean extends BaseEntityDAO<Account, Long> implements Acco
 
     @Override
     public Account findByAccountNumber(String accountNumber) {
-        TypedQuery<Account> query = this.entityManager.createQuery(FIND_BY_ACCOUNT_NUMBER_QUERY, Account.class);
-        query.setParameter("accountNumber", accountNumber);
+        Account result = null;
+        try {
+            TypedQuery<Account> query = this.entityManager.createQuery(FIND_BY_ACCOUNT_NUMBER_QUERY, Account.class);
+            query.setParameter("accountNumber", accountNumber);
 
-        return query.getSingleResult();
+            result = query.getSingleResult();
+        } catch (Exception e) {
+            log.error("Cannot find account, {}", e);
+        }
+
+        return result;
     }
 }
