@@ -4,27 +4,26 @@ var PageHeader = require('react-bootstrap').PageHeader;
 var LoginForm = require('./LoginForm');
 
 var MainBody = React.createClass(
-
     {
-        handleValueChange: function(e) {
+        handleValueChange: function (e) {
             this.setState({value: e.target.value});
         },
-        handleAccountChange: function(e) {
+        handleAccountChange: function (e) {
             this.setState({account: e.target.value});
         },
-        handleNameChange: function(e) {
+        handleNameChange: function (e) {
             this.setState({name: e.target.value});
         },
-        handleSurnameChange: function(e) {
+        handleSurnameChange: function (e) {
             this.setState({surname: e.target.value});
         },
-        handleTitleChange: function(e) {
+        handleTitleChange: function (e) {
             this.setState({title: e.target.value});
         },
-        handleLoginChange: function(e) {
+        handleLoginChange: function (e) {
             this.setState({login: e.target.value});
         },
-        handlePasswordChange: function(e) {
+        handlePasswordChange: function (e) {
             this.setState({password: e.target.value});
         },
         getInitialState: function () {
@@ -40,12 +39,17 @@ var MainBody = React.createClass(
 
                             <form>
                                 <h1> Transfer Money </h1>
-                                <input type="text" name="name" placeholder="Name" onChange={this.handleNameChange} /> <br/>
-                                <input type="text" name="surname" placeholder="Surname" onChange={this.handleSurnameChange} /> <br/>
-                                <input type="text" name="account" placeholder="Destination Account" onChange={this.handleAccountChange}/> <br/>
-                                <input type="text" name="value" placeholder="Value" onChange={this.handleValueChange} /> <br/>
-                                <input type="text" name="title" placeholder="Title" onChange={this.handleTitleChange} /> <br/>
-                                <input type="text" name="currency"  value="PLN" disabled /> <br/>
+                                <input type="text" name="name" placeholder="Name" onChange={this.handleNameChange}/>
+                                <br/>
+                                <input type="text" name="surname" placeholder="Surname"
+                                       onChange={this.handleSurnameChange}/> <br/>
+                                <input type="text" name="account" placeholder="Destination Account"
+                                       onChange={this.handleAccountChange}/> <br/>
+                                <input type="text" name="value" placeholder="Value" onChange={this.handleValueChange}/>
+                                <br/>
+                                <input type="text" name="title" placeholder="Title" onChange={this.handleTitleChange}/>
+                                <br/>
+                                <input type="text" name="currency" value="PLN" disabled/> <br/>
                                 <button type="button" onClick={this.handleTransfer}>Transfer Money</button>
                             </form>
                         </div>
@@ -55,30 +59,38 @@ var MainBody = React.createClass(
                     return (
                         <div className="container" id="mainBody">
                             <PageHeader> Log In</PageHeader>
-                                <form>
-                                    <input type="text" name="login" placeholder="Login" onChange={this.handleLoginChange} />
-                                    <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange}/>
-                                    <button type="button" onClick={this.handleLogin}>Login</button>
-                                </form>
+                            <form>
+                                <input type="text" name="login" placeholder="Login" onChange={this.handleLoginChange}/>
+                                <input type="password" name="password" placeholder="Password"
+                                       onChange={this.handlePasswordChange}/>
+                                <button type="button" onClick={this.handleLogin}>Login</button>
+                            </form>
                         </div>
                     );
             }
 
         },
-        handleTransfer: function() {
+        handleTransfer: function () {
             var AjaxResult;
             AjaxResult = "";
+            var data = {
+                amount: this.state.value,
+                receiverAccNumber: this.state.account,
+                //name: this.state.name},
+                //surname: this.state.surname,
+                senderAccNumber: '12345678909876543212345678',
+                title: this.state.title,
+                currency: "PLN"
+            };
             $.ajax({
                 type: "POST",
-                url: '/api/v1/transfer' ,
-                data: { amount: this.state.value,
-                        receiverAccNumber: this.state.account,
-                        //name: this.state.name},
-                        //surname: this.state.surname,
-                        senderAccNumber: '12345678909876543212345678',
-                        title: this.state.title,
-                        currency: this.state.currency },
+                url: 'http://localhost:8443/api/v1/transfer',
+                data: JSON.stringify(data),
                 dataType: 'json',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 success: function (response) {
                     //the response value is 'success'
                     AjaxResult = response;
@@ -91,13 +103,13 @@ var MainBody = React.createClass(
             this.forceUpdate();
         },
 
-        handleLogin: function() {
+        handleLogin: function () {
             var AjaxResult;
             AjaxResult = "";
             $.ajax({
                 type: "POST",
-                url: '/api/v1/login' ,
-                data: { username: this.state.login, password: this.state.password },
+                url: '/api/v1/login',
+                data: {username: this.state.login, password: this.state.password},
                 dataType: 'jsonp',
                 success: function (response) {
                     //the response value is 'success'

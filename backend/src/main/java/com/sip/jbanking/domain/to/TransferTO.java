@@ -2,6 +2,7 @@ package com.sip.jbanking.domain.to;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -54,6 +55,17 @@ public class TransferTO implements Serializable {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("senderAccNumber", senderAccNumber)
+                .append("receiverAccNumber", receiverAccNumber)
+                .append("amount", amount)
+                .append("title", title)
+                .append("currency", currency)
+                .toString();
     }
 
     @Override

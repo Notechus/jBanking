@@ -50,7 +50,7 @@ public class TransferServiceBean implements TransferService {
 
     @Override
     public boolean transferMoney(TransferTO transfer) {
-        log.info("Started money transfer transaction.");
+        log.info("Started money transfer transaction. {}", transfer);
         Account sender = accountDAO.findByAccountNumber(transfer.getSenderAccNumber());
         Account receiver = accountDAO.findByAccountNumber(transfer.getReceiverAccNumber());
 
