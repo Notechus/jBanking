@@ -41028,15 +41028,15 @@
 	        AjaxResult = "";
 	        $.ajax({
 	            type: "POST",
-	            url: '/asdasd/',
-	            data: { value: this.state.value,
-	                account: this.state.account,
-	                name: this.state.name },
-	            surname: this.state.surname,
-	            account: this.state.account,
-	            title: this.state.title,
-	            currency: this.state.currency,
-	            dataType: 'jsonp',
+	            url: '/api/v1/transfer',
+	            data: { amount: this.state.value,
+	                receiverAccNumber: this.state.account,
+	                //name: this.state.name},
+	                //surname: this.state.surname,
+	                senderAccNumber: '12345678909876543212345678',
+	                title: this.state.title,
+	                currency: this.state.currency },
+	            dataType: 'json',
 	            success: function success(response) {
 	                //the response value is 'success'
 	                AjaxResult = response;
@@ -41051,7 +41051,7 @@
 	        AjaxResult = "";
 	        $.ajax({
 	            type: "POST",
-	            url: '/asdasd/',
+	            url: '/api/v1/login',
 	            data: { username: this.state.login, password: this.state.password },
 	            dataType: 'jsonp',
 	            success: function success(response) {
