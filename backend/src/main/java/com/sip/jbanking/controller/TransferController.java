@@ -3,6 +3,7 @@ package com.sip.jbanking.controller;
 import com.sip.jbanking.domain.to.TransferTO;
 import com.sip.jbanking.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +30,17 @@ public class TransferController {
         }
     }
 
-    @RequestMapping(path = "api/v1/transfer/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<TransferTO>> getTransfers() {
-        return null;
+    @RequestMapping(path = "api/v1/transfer/{username}/sent", method = RequestMethod.GET)
+    public ResponseEntity<List<TransferTO>> getSentTransfers(@PathVariable String username) {
+        List<TransferTO> transferList = transferService.getTransferBySender(username);
+
+        return new ResponseEntity<List<TransferTO>>(transferList, new HttpHeaders(), HttpStatus.OK);
     }
 
+    @RequestMapping(path = "api/v1/transfer/{username}/received", method = RequestMethod.GET)
+    public ResponseEntity<List<TransferTO>> getReceivedTransfers(@PathVariable String username) {
+        List<TransferTO> transferList = transferService.getTransferByReceiver(username);
+
+        return new ResponseEntity<List<TransferTO>>(transferList, new HttpHeaders(), HttpStatus.OK);
+    }
 }
