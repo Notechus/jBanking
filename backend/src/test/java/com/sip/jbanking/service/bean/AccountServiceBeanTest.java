@@ -19,12 +19,7 @@ public class AccountServiceBeanTest {
     private static final String ACCOUNT_NUMBER = "1234567890";
     private static final String USERNAME = "login";
     private static final String FULL_NAME = "Imie Nazwisko";
-
-    @Test
-    public void testGetAccount() {
-        UserTO user = prepareUser();
-        assertEquals(ACCOUNT_NUMBER, accountService.getUserAccount(user));
-    }
+    
 
     private UserTO prepareUser() {
         AccountTO account = new AccountTO();

@@ -3,6 +3,7 @@ package com.sip.jbanking.service.bean;
 import com.sip.jbanking.domain.dao.UserDAO;
 import com.sip.jbanking.domain.entity.Account;
 import com.sip.jbanking.domain.entity.User;
+import com.sip.jbanking.domain.mappings.UserMapper;
 import com.sip.jbanking.domain.to.UserTO;
 import com.sip.jbanking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class UserServiceBean implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public UserServiceBean() {
     }
 
@@ -28,12 +32,7 @@ public class UserServiceBean implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
-        return null;
-    }
-
-    @Override
-    public User getUserByUsername(String username) {
-        return null;
+    public UserTO getUserById(long id) {
+        return userMapper.userToUserTO(userDAO.findById(id));
     }
 }

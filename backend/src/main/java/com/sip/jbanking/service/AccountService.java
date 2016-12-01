@@ -9,7 +9,7 @@ import com.sip.jbanking.domain.to.UserTO;
  */
 
 public interface AccountService {
-    public Account getAccountById(long id);
-    public Account getAccountByNumber(String accountNumber);
-    public Account getUserAccount(UserTO user);
+    public AccountTO getAccountById(long id);
+    public AccountTO getAccountByNumber(String accountNumber);
+    public AccountTO getAccountByUsername(String username);
 }
