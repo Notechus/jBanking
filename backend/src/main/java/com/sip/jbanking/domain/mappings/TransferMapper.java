@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 /**
  * @author notechus.
  */
@@ -20,4 +22,5 @@ public interface TransferMapper {
 
     })
     TransferTO transactionToTransactionTO(Transfer transaction);
+    List<TransferTO> tranferListToListTO(List<Transfer> transferList);
 }

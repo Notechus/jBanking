@@ -6,6 +6,7 @@ import com.sip.jbanking.domain.dao.TransferDAO;
 import com.sip.jbanking.domain.entity.Account;
 import com.sip.jbanking.domain.entity.Currency;
 import com.sip.jbanking.domain.entity.Transfer;
+import com.sip.jbanking.domain.mappings.TransferMapper;
 import com.sip.jbanking.domain.to.TransferTO;
 import com.sip.jbanking.service.TransferService;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author notechus.
@@ -32,6 +34,9 @@ public class TransferServiceBean implements TransferService {
 
     @Autowired
     private CurrencyDAO currencyDAO;
+
+    @Autowired
+    private TransferMapper transferMapper;
 
     public TransferServiceBean() {
 
@@ -106,5 +111,21 @@ public class TransferServiceBean implements TransferService {
         t.setAmount(amount);
 
         return t;
+    }
+
+    @Override
+    public List<TransferTO> getTransferBySender(String username) {
+        List<Transfer> transferList = transferDAO.getBySenderUsername(username);
+        List<TransferTO> transferTOList = transferMapper.tranferListToListTO(transferList);
+
+        return transferTOList;
+    }
+
+    @Override
+    public List<TransferTO> getTransferByReceiver(String username) {
+        List<Transfer> transferList = transferDAO.getByReceiverUsername(username);
+        List<TransferTO> transferTOList = transferMapper.tranferListToListTO(transferList);
+
+        return transferTOList;
     }
 }
