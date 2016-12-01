@@ -20,7 +20,7 @@ public class AccountController {
 
     @RequestMapping(path = "api/v1/account/{username}", method = RequestMethod.GET)
     public ResponseEntity<AccountTO> getAccount(@PathVariable String username) {
-        AccountTO account = accountService.findAccountByUsername(username);
+        AccountTO account = accountService.getAccountByUsername(username);
 
         return new ResponseEntity<>(account, new HttpHeaders(), HttpStatus.OK);
     }

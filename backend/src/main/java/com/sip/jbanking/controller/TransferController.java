@@ -7,24 +7,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by ziolson on 17.11.2016.
  */
 
 @RestController
 @CrossOrigin
-@RequestMapping(path = "api/v1/transfer")
 public class TransferController {
+
     @Autowired
     private TransferService transferService;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(path = "api/v1/transfer", method = RequestMethod.POST)
     public ResponseEntity post(@RequestBody TransferTO transferDTO) {
         if (transferService.transferMoney(transferDTO)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(path = "api/v1/transfer/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<TransferTO>> getTransfers() {
+        return null;
     }
 
 }
