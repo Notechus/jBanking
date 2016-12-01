@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping(path = "api/v1/transfer")
 public class TransferController {
     @Autowired
     private TransferService transferService;
 
-    @RequestMapping(value = "api/v1/transfer", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity post(@RequestBody TransferTO transferDTO) {
         if (transferService.transferMoney(transferDTO)) {
             return new ResponseEntity(HttpStatus.OK);

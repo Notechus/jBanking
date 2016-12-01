@@ -22,6 +22,7 @@ public class AccountDAOBean extends BaseEntityDAO<Account, Long> implements Acco
     private EntityManager entityManager;
 
     private static final String FIND_BY_ACCOUNT_NUMBER_QUERY = "select a from Account a where a.accountNumber = :accountNumber";
+    private static final String FIND_BY_USERNAME_QUERY = "select a from Account a where a.owner.username = :username";
 
     public AccountDAOBean() {
         super(Account.class);
@@ -40,5 +41,20 @@ public class AccountDAOBean extends BaseEntityDAO<Account, Long> implements Acco
         }
 
         return result;
+    }
+
+    @Override
+    public Account findByUsername(String username) {
+        Account account = null;
+        try {
+            TypedQuery<Account> query = this.entityManager.createQuery(FIND_BY_USERNAME_QUERY, Account.class);
+            query.setParameter("username", username);
+
+            account = query.getSingleResult();
+        } catch (Exception e) {
+            log.error("Cannot find account, {}", e);
+        }
+
+        return account;
     }
 }
