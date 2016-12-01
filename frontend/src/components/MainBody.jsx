@@ -2,24 +2,13 @@ var AccountBalance = require('./AccountBalance');
 var React = require('react');
 var PageHeader = require('react-bootstrap').PageHeader;
 var LoginForm = require('./LoginForm');
+var Tabs = require('react-bootstrap').Tabs;
+var Tab = require('react-bootstrap').Tab;
+var TransferMoney = require('./TransferMoney');
 
 var MainBody = React.createClass(
     {
-        handleValueChange: function (e) {
-            this.setState({value: e.target.value});
-        },
-        handleAccountChange: function (e) {
-            this.setState({account: e.target.value});
-        },
-        handleNameChange: function (e) {
-            this.setState({name: e.target.value});
-        },
-        handleSurnameChange: function (e) {
-            this.setState({surname: e.target.value});
-        },
-        handleTitleChange: function (e) {
-            this.setState({title: e.target.value});
-        },
+
         handleLoginChange: function (e) {
             this.setState({login: e.target.value});
         },
@@ -34,24 +23,11 @@ var MainBody = React.createClass(
                 case 1:
                     return (
                         <div className="container" id="mainBody">
-                            <PageHeader> Account</PageHeader>
-                            <h1> Balance</h1><br/>
+                            <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="userTabs">
+                                <Tab eventKey={1} title="Account Balance"><AccountBalance/></Tab>
+                                <Tab eventKey={2} title="Transfer Money"><TransferMoney/></Tab>
+                                         </Tabs>
 
-                            <form>
-                                <h1> Transfer Money </h1>
-                                <input type="text" name="name" placeholder="Name" onChange={this.handleNameChange}/>
-                                <br/>
-                                <input type="text" name="surname" placeholder="Surname"
-                                       onChange={this.handleSurnameChange}/> <br/>
-                                <input type="text" name="account" placeholder="Destination Account"
-                                       onChange={this.handleAccountChange}/> <br/>
-                                <input type="text" name="value" placeholder="Value" onChange={this.handleValueChange}/>
-                                <br/>
-                                <input type="text" name="title" placeholder="Title" onChange={this.handleTitleChange}/>
-                                <br/>
-                                <input type="text" name="currency" value="PLN" disabled/> <br/>
-                                <button type="button" onClick={this.handleTransfer}>Transfer Money</button>
-                            </form>
                         </div>
                     );
                 case 0:
@@ -76,8 +52,6 @@ var MainBody = React.createClass(
             var data = {
                 amount: this.state.value,
                 receiverAccNumber: this.state.account,
-                //name: this.state.name},
-                //surname: this.state.surname,
                 senderAccNumber: '12345678909876543212345678',
                 title: this.state.title,
                 currency: "PLN"
@@ -92,12 +66,9 @@ var MainBody = React.createClass(
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
-                    //the response value is 'success'
                     AjaxResult = response;
                 },
-                // error: function (data, status, e) {
-                //     alert("error:" + e);
-                // }
+
             });
             console.log(AjaxResult);
             this.forceUpdate();
@@ -106,20 +77,22 @@ var MainBody = React.createClass(
         handleLogin: function () {
             var AjaxResult;
             AjaxResult = "";
+
             $.ajax({
                 type: "POST",
-                url: '/api/v1/login',
-                data: {username: this.state.login, password: this.state.password},
-                dataType: 'jsonp',
+                url: 'http://localhost:8443/oauth/token?grant_type=password&username=gregory.house@jbanking.com&password=Password123',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                },
                 success: function (response) {
-                    //the response value is 'success'
                     AjaxResult = response;
                 },
-                // error: function (data, status, e) {
-                //     alert("error:" + e);
-                // }
+
             });
-            console.log(this.state.password);
+            console.log(response);
             this.state.logged = 1;
             this.forceUpdate();
         }
