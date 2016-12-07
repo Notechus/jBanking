@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS location (
 
 CREATE TABLE IF NOT EXISTS account (
   id             SERIAL PRIMARY KEY,
+  owner_id       BIGINT UNSIGNED         NOT NULL,
   account_number VARCHAR(26) UNIQUE      NOT NULL,
   balance        DOUBLE DEFAULT 0        NOT NULL,
   creationtime   TIMESTAMP DEFAULT now() NOT NULL
