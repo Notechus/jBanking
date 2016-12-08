@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * @author notechus.
  */
 @Configuration
-public class TestConfiguration {
+public class MappingsTestConfiguration {
     @Bean
     public AccountMapper accountMapper() {
         return new AccountMapperImpl();

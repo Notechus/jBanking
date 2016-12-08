@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfiguration.class)
+@ContextConfiguration(classes = MappingsTestConfiguration.class)
 public class LocationMapperTest {
 
     @Autowired

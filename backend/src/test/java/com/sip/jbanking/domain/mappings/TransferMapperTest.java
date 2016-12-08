@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfiguration.class)
+@ContextConfiguration(classes = MappingsTestConfiguration.class)
 public class TransferMapperTest {
 
     @Autowired
