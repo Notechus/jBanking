@@ -27,8 +27,9 @@ public class UserServiceBean implements UserService {
     public UserServiceBean() {
     }
 
-    UserServiceBean(UserDAO userDAO) {
+    UserServiceBean(UserDAO userDAO, UserMapper userMapper) {
         this.userDAO = userDAO;
+        this.userMapper = userMapper;
     }
 
     @Override
