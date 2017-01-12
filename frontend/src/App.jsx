@@ -10,6 +10,7 @@ var App = React.createClass({
         if (this.state.view != key) this.setState({view: key});
     },
     getInitialState: function () {
+        localStorage.setItem('token', "");
         return {view: 1};
     },
 

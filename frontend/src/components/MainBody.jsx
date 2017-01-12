@@ -19,8 +19,8 @@ var MainBody = React.createClass(
             return {view: 1, logged: 0};
         },
         render: function () {
-            switch (this.state.logged) {
-                case 1:
+            switch (localStorage.getItem('token') == "") {
+                case false:
                     return (
                         <div className="container" id="mainBody">
                             <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="userTabs">
@@ -30,7 +30,7 @@ var MainBody = React.createClass(
 
                         </div>
                     );
-                case 0:
+                case true:
 
                     return (
                         <div className="container" id="mainBody">
@@ -80,20 +80,21 @@ var MainBody = React.createClass(
 
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:8443/oauth/token?grant_type=password&username=gregory.house@jbanking.com&password=Password123',
-                data: JSON.stringify(data),
+                url: 'https://85.255.11.168:8443/oauth/token?grant_type=password&username=gregory.house@jbanking.com&password=Password123',
                 dataType: 'json',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
                 },
                 success: function (response) {
-                    AjaxResult = response;
+
+
+                    localStorage.setItem('token', response['access_token']);
+                    console.log(localStorage.getItem('token'));
+
                 },
 
             });
-            console.log(response);
-            this.state.logged = 1;
             this.forceUpdate();
         }
     });
