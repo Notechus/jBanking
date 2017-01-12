@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.apply(stormpath());
         http.authorizeRequests()
-                .antMatchers("/api/v1/account/**", "api/v1/transfer/**").permitAll()
+                .antMatchers("/api/v1/account/**", "/api/v1/transfer/**").permitAll()
                 .antMatchers("/login", "/me", "/css/**", "/js/**").permitAll();
 
         http.csrf().disable();
