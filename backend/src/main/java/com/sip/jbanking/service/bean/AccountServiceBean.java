@@ -25,8 +25,9 @@ public class AccountServiceBean implements AccountService{
     public AccountServiceBean() {
     }
 
-    AccountServiceBean(AccountDAO accountDAO) {
+    AccountServiceBean(AccountDAO accountDAO, AccountMapper accountMapper) {
         this.accountDAO = accountDAO;
+        this.accountMapper = accountMapper;
     }
 
     @Override
