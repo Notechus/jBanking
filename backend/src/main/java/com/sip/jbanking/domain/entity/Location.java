@@ -3,10 +3,8 @@ package com.sip.jbanking.domain.entity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * @author notechus.
@@ -18,18 +16,21 @@ public class Location implements com.sip.jbanking.domain.entity.Entity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "STREET_ADRESS")
     private String street;
 
+    @Column(name = "POSTAL_CODE")
     private String postalCode;
 
     private String city;
 
+    @Column(name = "STATE_PROVINCE")
     private String state;
 
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }

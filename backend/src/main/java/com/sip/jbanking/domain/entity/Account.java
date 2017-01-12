@@ -18,7 +18,7 @@ public class Account implements com.sip.jbanking.domain.entity.Entity<Long> {
     private Long id;
 
     @OneToOne(targetEntity = User.class)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "OWNER_ID")
     private User owner;
 
     @Column(name = "ACCOUNT_NUMBER")

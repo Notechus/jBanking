@@ -1,6 +1,5 @@
 package com.sip.jbanking.config;
 
-import com.stormpath.sdk.servlet.filter.StormpathFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.apply(stormpath());
         http.authorizeRequests()
-                .antMatchers("/api/v1/account", "api/v1/transfer").fullyAuthenticated()
+                .antMatchers("/api/v1/account/**", "api/v1/transfer/**").permitAll()
                 .antMatchers("/login", "/me", "/css/**", "/js/**").permitAll();
 
         http.csrf().disable();
