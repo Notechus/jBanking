@@ -9,11 +9,6 @@
     "object-assign": "^4.1.0",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.2",
-    "react-bootstrap-table": "^2.3.1",
-    "react-clock": "^1.0.5",
-    "react-d3": "^0.4.0",
-    "react-d3-components": "^0.6.3",
-    "react-datetime": "^2.1.0",
     "react-dom": "^15.0.1"
   },
   "devDependencies": {

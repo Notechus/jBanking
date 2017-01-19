@@ -1,43 +1,28 @@
-// return (
-//     <div id="portfolio">
-//         <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="portfolioTabs">
-//             <Tab eventKey={1} title="Created Options"><CreatedOptionTable/></Tab>
-//             <Tab eventKey={2} title="Option Trades"><OptionTradeTable/></Tab>
-//             <Tab eventKey={3} title="Stock Trades"><StockTradeTable/></Tab>
-//         </Tabs>
-//     </div>
-// );
-
-
-
 var React = require('react');
-var PageHeader = require('react-bootstrap').PageHeader;
 
-
-var TransferMoney = React.createClass(
-    {
-        handleValueChange: function (e) {
-            this.setState({value: e.target.value});
-        },
-        handleAccountChange: function (e) {
-            this.setState({account: e.target.value});
-        },
-        handleNameChange: function (e) {
-            this.setState({name: e.target.value});
-        },
-        handleSurnameChange: function (e) {
-            this.setState({surname: e.target.value});
-        },
-        handleTitleChange: function (e) {
-            this.setState({title: e.target.value});
-        },
-        getInitialState: function () {
-            return {view: 1, logged: 0};
-        },
-        render: function () {
-            return (
-                <div className="container" id="mainBody">
-
+var TransferMoney = React.createClass({
+    handleValueChange: function (e) {
+        this.setState({value: e.target.value});
+    },
+    handleAccountChange: function (e) {
+        this.setState({account: e.target.value});
+    },
+    handleNameChange: function (e) {
+        this.setState({name: e.target.value});
+    },
+    handleSurnameChange: function (e) {
+        this.setState({surname: e.target.value});
+    },
+    handleTitleChange: function (e) {
+        this.setState({title: e.target.value});
+    },
+    getInitialState: function () {
+        return {view: 1, logged: 0};
+    },
+    render: function () {
+        return (
+            <div className="row">
+                <div className="col-md-12">
                     <form>
                         <h1> Transfer Money </h1>
                         <input type="text" name="name" placeholder="Name" onChange={this.handleNameChange}/>
@@ -54,32 +39,9 @@ var TransferMoney = React.createClass(
                         <button type="button" onClick={this.handleTransfer}>Transfer Money</button>
                     </form>
                 </div>
-            );
-        },
-        getAccountData: function () {
-            var AjaxResult;
-            AjaxResult = "";
-            var data = {
-                eceiverAccNumber: this.state.account,
-                senderAccNumber: '12345678909876543212345678',
-            };
-            $.ajax({
-                type: "POST",
-                url: 'http://localhost:8443/api/v1/transfer',
-                data: JSON.stringify(data),
-                dataType: 'json',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                success: function (response) {
-                    AjaxResult = response;
-                },
-
-            });
-            console.log(AjaxResult);
-            this.forceUpdate();
-        }
-    });
+            </div>
+        );
+    }
+});
 
 module.exports = TransferMoney;
