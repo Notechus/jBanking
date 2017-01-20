@@ -16,6 +16,12 @@ body {
     padding-right: 2.5%;
 }
 
+.scrollable {
+    overflow: scroll;
+    max-height: 200px;
+    height: 300px;
+}
+
 #mainBody {
     background-color: whitesmoke;
     border-radius: 5px;

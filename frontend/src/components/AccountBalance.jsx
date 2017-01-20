@@ -64,6 +64,7 @@ var AccountBalance = React.createClass({
                     <td>{item.receiverAccNumber}</td>
                     <td>{item.title}</td>
                     <td>{item.amount + ' ' + item.currency}</td>
+                    <td>{item.timestamp}</td>
                 </tr>);
             counter++;
         }
@@ -76,6 +77,7 @@ var AccountBalance = React.createClass({
                     <td>{item.senderAccNumber}</td>
                     <td>{item.title}</td>
                     <td>{item.amount + ' ' + item.currency}</td>
+                    <td>{item.timestamp}</td>
                 </tr>);
             counter++;
         }
@@ -113,6 +115,7 @@ var AccountBalance = React.createClass({
                                         <th>Receiver account</th>
                                         <th>Title</th>
                                         <th>Amount</th>
+                                        <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -130,6 +133,7 @@ var AccountBalance = React.createClass({
                                         <th>Sender account</th>
                                         <th>Title</th>
                                         <th>Amount</th>
+                                        <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -16,6 +16,7 @@ public class TransferTO implements Serializable {
     private double amount;
     private String title;
     private String currency;
+    private String timestamp;
 
     public String getSenderAccNumber() {
         return senderAccNumber;
@@ -57,6 +58,14 @@ public class TransferTO implements Serializable {
         this.currency = currency;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -65,6 +74,7 @@ public class TransferTO implements Serializable {
                 .append("amount", amount)
                 .append("title", title)
                 .append("currency", currency)
+                .append("timestamp", timestamp)
                 .toString();
     }
 
@@ -82,6 +92,7 @@ public class TransferTO implements Serializable {
                 .append(receiverAccNumber, that.receiverAccNumber)
                 .append(title, that.title)
                 .append(currency, that.currency)
+                .append(timestamp, that.timestamp)
                 .isEquals();
     }
 

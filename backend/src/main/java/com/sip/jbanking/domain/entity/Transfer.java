@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.Date;
 
 /**
  * @author notechus.
@@ -23,6 +24,9 @@ public class Transfer implements com.sip.jbanking.domain.entity.Entity<Long> {
     @OneToOne
     @JoinColumn(name = "RECEIVER_ID")
     private Account receiver;
+
+    @Column(name = "transactiontime")
+    private Date timestamp;
 
     @OneToOne(targetEntity = Currency.class)
     private Currency currency;
@@ -79,6 +83,14 @@ public class Transfer implements com.sip.jbanking.domain.entity.Entity<Long> {
         this.description = description;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,6 +106,7 @@ public class Transfer implements com.sip.jbanking.domain.entity.Entity<Long> {
                 .append(receiver, that.receiver)
                 .append(currency, that.currency)
                 .append(description, that.description)
+                .append(timestamp, that.timestamp)
                 .isEquals();
     }
 

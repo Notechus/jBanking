@@ -29,6 +29,9 @@ var AccountStore = assign({}, EventEmitter.prototype, {
     getUsername: function () {
         return this.accountInfo['username'];
     },
+    getAccountNumber: function () {
+        return this.accountInfo['accountNumber'];
+    },
     loadAccountInfo: function (url) {
         var self = this;
         $.getJSON(url, '', function (result) {
@@ -71,9 +74,36 @@ var AccountStore = assign({}, EventEmitter.prototype, {
         return p1 + ' ' + p2 + ' ' + p3 + ' ' + p4 + ' ' + p5 + ' ' + p6 + ' ' + p7;
     },
     postTransfer: function (url, transfer) {
-        $.post(url, item).done(function (data) {
-            this.getSentTransfers();
+        var self = this;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(transfer),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            dataType: 'json',
+            complete: function (data) {
+                self.getSentTransfers();
+                self.getReceivedTransfers();
+                self.getAccountInfo();
+            }
         });
+        // $.ajax({
+        //     url: 'YourRestEndPoint',
+        //     headers: {
+        //         'Authorization': 'Basic xxxxxxxxxxxxx',
+        //         'X_CSRF_TOKEN': 'xxxxxxxxxxxxxxxxxxxx',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'POST',
+        //     dataType: 'json',
+        //     data: YourData,
+        //     success: function (data) {
+        //         console.log('succes: ' + data);
+        //     }
+        // });
     }
 });
 

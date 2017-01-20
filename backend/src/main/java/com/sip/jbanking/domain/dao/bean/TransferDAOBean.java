@@ -18,8 +18,8 @@ public class TransferDAOBean extends BaseEntityDAO<Transfer, Long> implements Tr
     @PersistenceContext
     private EntityManager entityManager;
 
-    private static final String FIND_BY_SENDER_USERNAME_QUERY = "select t from Transfer t join t.sender.owner o where o.username = :username";
-    private static final String FIND_BY_RECEIVER_USERNAME_QUERY = "select t from Transfer t join t.receiver.owner o where o.username = :username";
+    private static final String FIND_BY_SENDER_USERNAME_QUERY = "select t from Transfer t join t.sender.owner o where o.username = :username order by t.timestamp desc";
+    private static final String FIND_BY_RECEIVER_USERNAME_QUERY = "select t from Transfer t join t.receiver.owner o where o.username = :username order by t.timestamp desc";
 
     public TransferDAOBean() {
         super(Transfer.class);
